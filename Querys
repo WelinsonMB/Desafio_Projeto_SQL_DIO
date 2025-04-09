@@ -1,0 +1,29 @@
+show tables; 
+select * from cliente;
+select * from produto;
+select * from pedido;
+select * from produto_pedido;
+
+select c.Nome,prod.Categoria,prod.descProduto,ped.descPedido,pp.Quantidade 
+from cliente c, produto prod, pedido ped, produto_pedido pp 
+where c.idClient = ped.idClient and prod.idProduto = pp.idProduto; 
+
+SELECT c.Nome, COUNT(p.idPedido) AS TotalPedidos
+FROM Cliente c
+JOIN Pedido p ON c.idClient = p.idClient
+GROUP BY c.idClient;
+
+SELECT f.NomeFantasia AS Fornecedor, p.descProduto AS Produto
+FROM fornecedor_produto fp
+JOIN Fornecedor f ON fp.idFornecedor = f.idFornecedor
+JOIN Produto p ON fp.idProduto = p.idProduto;
+
+SELECT f.NomeFantasia AS Fornecedor, p.descProduto AS Produto
+FROM fornecedor_produto fp
+JOIN Fornecedor f ON fp.idFornecedor = f.idFornecedor
+JOIN Produto p ON fp.idProduto = p.idProduto;
+
+SELECT f.NomeFantasia AS Fornecedor, p.descProduto AS Produto
+FROM fornecedor_produto fp
+JOIN Fornecedor f ON fp.idFornecedor = f.idFornecedor
+JOIN Produto p ON fp.idProduto = p.idProduto;
