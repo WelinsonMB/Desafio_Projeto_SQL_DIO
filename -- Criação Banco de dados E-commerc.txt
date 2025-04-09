@@ -1,15 +1,16 @@
 -- Criação Banco de dados E-commerce
- 
- create database ecommerce;
- use ecommerce; 
+
+create database ecommerce;
+use ecommerce; 
  
  -- criar tabela cliente
  
- create table cliente(
+create table cliente(
 	idClient int auto_increment primary key,
+    Nome varchar (20) not null,
     endereco varchar(255) not null,
 	cadastro ENUM('Pessoa Fisica','Pessoa Juridica') not null
- );
+);
  
  -- criar tabela pessoa física
  
@@ -32,7 +33,7 @@
  );
  
  -- criar tabela pagamento
- 
+
  create table Pagamento (
 	idPagamento int auto_increment primary key,
 	NumCard int not null,
@@ -143,25 +144,4 @@ create table fornecedor_produto (
     constraint fk_estoque_produto_idProduto foreign key (IdProduto) references Produto(idProduto),
     constraint fk_estoque_produto_idEstoque foreign key (IdEstoque) references estoque(idEstoque)
  );
- 
- show tables;
- 
- insert into cliente (endereco, cadastro) values
-('Rua A, 123 - Centro', 'Pessoa Fisica'),
-('Av. Brasil, 45 - Bairro B', 'Pessoa Juridica'),
-('Rua das Flores, 789 - Zona Sul', 'Pessoa Fisica'),
-('Av. Paulista, 1000 - Bela Vista', 'Pessoa Juridica'),
-('Rua dos Andradas, 321 - Centro', 'Pessoa Fisica'),
-('Rua XV de Novembro, 222 - Centro', 'Pessoa Juridica'),
-('Rua Ceará, 777 - Zona Norte', 'Pessoa Fisica'),
-('Alameda Santos, 456 - Centro', 'Pessoa Juridica');
-
-select * from cliente; 
-
- 
- 
- 
- 
- 
- 
  
