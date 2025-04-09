@@ -1,0 +1,94 @@
+--Populando os dados
+
+
+ -- Populando a tabela cliente
+insert into cliente (Nome, endereco, cadastro) values
+('João Silva', 'Rua das Flores, 123', 'Pessoa Fisica'),
+('Maria Oliveira', 'Avenida Brasil, 456', 'Pessoa Fisica'),
+('Empório X', 'Rua do Comércio, 789', 'Pessoa Juridica'),
+('SuperStore', 'Rua Principal, 101', 'Pessoa Juridica');
+
+-- Populando a tabela PessoaFisica
+insert into PessoaFisica (CPF, idClient) values
+('12345678901', 1),
+('98765432100', 2);
+
+-- Populando a tabela PessoaJuridica
+insert into PessoaJuridica (CNPJ, RazaoSocial, NomeFantasia, idClient) values
+('12345678000195', 'Empório X Ltda', 'Empório X', 3),
+('98765432000121', 'SuperStore S.A.', 'SuperStore', 4);
+
+-- Populando a tabela pagamento
+ALTER TABLE Pagamento modify COLUMN Numcard varchar (20); 
+insert into Pagamento (NumCard, Validade, idClient) values
+(1234567812345678, '2026-06-30', 1),
+(8765432187654321, '2027-12-31', 2),
+(1111222233334444, '2025-05-15', 3),
+(5555666677778888, '2028-02-20', 4);
+
+-- Populando a tabela pedido
+select * from Pedido;
+insert into Pedido (StatusPedido, descPedido, idClient, idPagamento) values
+('Finalizado', 'Pedido de 3 camisetas', 1, 1),
+('Processando', 'Pedido de 2 smartphones', 2, 2),
+('Finalizado', 'Pedido de móveis para escritório', 3, 3),
+('Finalizado', 'Pedido de brinquedos para loja', 4, 4);
+
+-- Populando a tabela entrega
+insert into Entrega (StatusEntrega, CodigoRastreio, idPedido) values
+('Entregue', 'R123456789', 1),
+('Em Rota', 'R987654321', 2),
+('Entregue', 'R112233445', 3),
+('Entregue', 'R556677889', 4);
+
+-- Populando a tabela produto
+select * from Produto;
+drop table Produto;
+insert into Produto (Categoria, descProduto, Valor, size) values
+('Eletrônico', 'Smartphone Android', 1500.00, 'Unico'),
+('Eletrônico', 'Notebook Dell', 3500.00, 'Unico'),
+('Vestimenta', 'Camiseta Branca', 40.00, 'M'),
+('Brinquedos', 'Carrinho de Controle Remoto', 120.00, 'Unico'),
+('Móveis', 'Cadeira Gamer', 500.00, 'Unico');
+
+-- Populando a tabela Produto_Pedido
+desc Produto_Pedido; 
+select * from Produto_Pedido;
+insert into Produto_Pedido (idPedido, idProduto, Quantidade) values
+(1, 3, 3), -- João comprou 3 camisetas
+(2, 1, 2), -- Maria comprou 2 smartphones
+(3, 5, 1), -- Empório X comprou 1 cadeira gamer
+(4, 4, 1); -- SuperStore comprou 1 carrinho de controle remoto
+
+-- Populando a tabela fornecedor
+insert into Fornecedor (CNPJ, RazaoSocial, NomeFantasia) values
+('10101010000191', 'Fornecedor A', 'A Eletrônicos'),
+('20202020000181', 'Fornecedor B', 'Móveis e Cia'),
+('30303030000171', 'Fornecedor C', 'Brinquedos Fun');
+
+-- Populando a tabela fornecedor_produto
+insert into fornecedor_produto (idFornecedor, idProduto, Quantidade) values
+(1, 1, 100), -- Fornecedor A fornece smartphones
+(2, 5, 50), -- Fornecedor B fornece cadeiras gamer
+(3, 4, 200); -- Fornecedor C fornece carrinhos de controle remoto
+
+-- Populando a tabela terceiro
+insert into terceiros (CNPJ, RazaoSocial, NomeFantasia, Endereco) values
+('40404040000161', 'Vendedor A', 'Vendas Rápidas', 'Rua das Vendas, 123'),
+('50505050000151', 'Vendedor B', 'Vendas Super', 'Rua Comercial, 456');
+
+-- Populando a tabela terceiro_produto
+insert into terceiro_produto (idTerceiro, idProduto, Quantidade) values
+(1, 3, 10), -- Vendedor A fornece camisetas
+(2, 2, 20); -- Vendedor B fornece notebooks
+
+-- Populando a tabela estoque
+insert into estoque (Local) values
+('Armazém 1'),
+('Armazém 2');
+
+-- Populando a tabela estoque_produto
+insert into estoque_produto (idProduto, idEstoque, Quantidade) values
+(1, 1, 100), -- 100 smartphones no Armazém 1
+(5, 2, 50), -- 50 cadeiras gamer no Armazém 2
+(3, 1, 30); -- 30 camisetas no Armazém 1
