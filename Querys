@@ -4,26 +4,25 @@ select * from produto;
 select * from pedido;
 select * from produto_pedido;
 
-select c.Nome,prod.Categoria,prod.descProduto,ped.descPedido,pp.Quantidade 
-from cliente c, produto prod, pedido ped, produto_pedido pp 
-where c.idClient = ped.idClient and prod.idProduto = pp.idProduto; 
+-- Quantos pedidos foram feitos por cada cliente, e quantidade de ITEMS de cada pedido
+select c.Nome,c.cadastro,p.StatusPedido,prod.descProduto as 'Descrição do Produto',prod.Categoria,pp.Quantidade
+from cliente c join pedido p using(idClient) join produto_pedido pp using(idPedido) 
+join produto prod on pp.idProduto = prod.idProduto;    
 
-SELECT c.Nome, COUNT(p.idPedido) AS TotalPedidos
-FROM Cliente c
-JOIN Pedido p ON c.idClient = p.idClient
-GROUP BY c.idClient;
+-- Query para relação fornecedor, produto e estoque. 
 
-SELECT f.NomeFantasia AS Fornecedor, p.descProduto AS Produto
-FROM fornecedor_produto fp
-JOIN Fornecedor f ON fp.idFornecedor = f.idFornecedor
-JOIN Produto p ON fp.idProduto = p.idProduto;
+select f.RazaoSocial,f.NomeFantasia as 'Nome Fantasia',prod.Categoria,prod.Valor,prod.descProduto,es.local as 'Local do estoque' 
+from fornecedor f join fornecedor_produto fp using (idFornecedor)
+join produto prod on fp.idProduto = prod.idProduto
+join estoque_produto ep on ep.idProduto =prod.idProduto join estoque es using(idEstoque); 
 
-SELECT f.NomeFantasia AS Fornecedor, p.descProduto AS Produto
-FROM fornecedor_produto fp
-JOIN Fornecedor f ON fp.idFornecedor = f.idFornecedor
-JOIN Produto p ON fp.idProduto = p.idProduto;
 
-SELECT f.NomeFantasia AS Fornecedor, p.descProduto AS Produto
-FROM fornecedor_produto fp
-JOIN Fornecedor f ON fp.idFornecedor = f.idFornecedor
-JOIN Produto p ON fp.idProduto = p.idProduto;
+-- Relação cliente, pedido e entrega. 
+
+select c.nome,c.cadastro,ped.descPedido,e.CodigoRastreio,e.StatusEntrega 
+from cliente c join pedido ped using(idClient)
+join entrega e using (idPedido);
+
+-- Relaçao Cliente e forma de pagamento
+
+select * from cliente join pagamento using (idClient);
